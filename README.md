@@ -587,3 +587,90 @@ Authentication succeeded.
 **Explanation**
 
 The High level includes stronger validation and CSRF tokens, but weak credentials can still be guessed if strong password policies are not enforced.
+
+---
+
+### Vulnerability: File Upload
+
+File upload vulnerabilities occur when a web application allows users to upload files without properly validating them. Attackers can upload malicious files such as scripts which may execute on the server.
+
+---
+
+#### Security Level: Low
+
+**Payload Used**
+
+```
+shell.php
+```
+
+Content of the uploaded file:
+
+```php
+<?php
+echo "File upload successful";
+system($_GET['cmd']);
+?>
+```
+
+**Result**
+
+The file uploaded successfully and the PHP code executed when the file was opened in the browser.
+
+**Screenshot**
+
+![File Upload Low](screenshots/fu_low.png)
+![File Upload Low](screenshots/fu_browser.png)
+
+**Explanation**
+
+At the Low security level, the application does not check the file type or extension. Because of this, a malicious PHP file can be uploaded directly. When the uploaded file is accessed through the browser, the PHP code runs on the server.
+
+---
+
+#### Security Level: Medium
+
+**Payload Used**
+
+```
+shell.php.jpg
+```
+
+**Result**
+
+The file was successfully uploaded even though it contained PHP code.
+
+**Screenshot**
+
+![File Upload Medium](screenshots/fileupload_med.png)
+
+**Explanation**
+
+At the Medium security level, the application tries to restrict uploads by checking the file extension. However, this protection is weak. By using a double extension such as `.php.jpg`, the application thinks the file is an image and allows the upload. This shows that relying only on file extensions for validation is not secure.
+
+---
+
+#### Security Level: High
+
+**Payload Used**
+
+```
+shell.php
+shell.php.jpg
+shell.php5
+shell.phtml
+```
+
+**Result**
+
+The upload was blocked and the malicious file could not be uploaded.
+
+**Screenshot**
+
+![File Upload High](screenshots/fileupload_high.png)
+
+**Explanation**
+
+At the High security level, stronger validation is applied. The application checks the file type and verifies whether the uploaded file is a real image. Because the uploaded file contained PHP code instead of image data, the server rejected it and the attack failed.
+
+---
