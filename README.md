@@ -452,7 +452,7 @@ The page took around 5 seconds to respond.
 
 **Screenshot**
 
-![Blind SQL Injection High](screenshots/sqlblind_high.png)
+![Blind SQL Injection High](screenshots/sqlblind_hard.png)
 
 **Explanation**
 
