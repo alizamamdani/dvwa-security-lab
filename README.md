@@ -221,7 +221,7 @@ The alert popup still appeared.
 
 **Screenshot**
 
-![Reflected XSS Medium](screenshots/xssr_med.png)
+![Reflected XSS Medium](screenshots/xssr_medium.png)
 
 **Explanation**
 
@@ -294,7 +294,7 @@ The alert appeared.
 
 **Screenshot**
 
-![Stored XSS Medium](screenshots/xsss_med.png)
+![Stored XSS Medium](screenshots/xsss_medium.png)
 
 **Explanation**
 
@@ -313,10 +313,6 @@ Some filtering is applied at this level, but it is not applied to all input fiel
 **Result**
 
 The JavaScript did not execute.
-
-**Screenshot**
-
-![Stored XSS High](screenshots/xsss_high.png)
 
 **Explanation**
 
@@ -364,7 +360,7 @@ The ping command ran and the directory listing was also shown.
 
 **Screenshot**
 
-![Command Injection Medium](screenshots/ci_med.png)
+![Command Injection Medium](screenshots/ci_medium.png)
 
 **Explanation**
 
@@ -412,7 +408,7 @@ The message “User ID exists in the database” appeared.
 
 **Screenshot**
 
-![Blind SQL Injection Low](screenshots/sqlinjection_low.png)
+![Blind SQL Injection Low](screenshots/sqlblind_low.png)
 
 **Explanation**
 
@@ -434,7 +430,7 @@ The message indicated that the user ID exists.
 
 **Screenshot**
 
-![Blind SQL Injection Medium](screenshots/sqlinjection_med.png)
+![Blind SQL Injection Medium](screenshots/sqlblind_medium.png)
 
 **Explanation**
 
@@ -456,7 +452,7 @@ The page took around 5 seconds to respond.
 
 **Screenshot**
 
-![Blind SQL Injection High](screenshots/sqlinjection_high.png)
+![Blind SQL Injection High](screenshots/sqlblind_high.png)
 
 **Explanation**
 
@@ -500,7 +496,7 @@ The hidden token was regenerated and the form submission worked.
 
 **Screenshot**
 
-![JavaScript Attack Medium](screenshots/js_med.png)
+![JavaScript Attack Medium](screenshots/js_medium.png)
 
 **Explanation**
 
@@ -517,10 +513,6 @@ None (manual token generation attempt).
 **Result**
 
 The token could not be regenerated.
-
-**Screenshot**
-
-![JavaScript Attack High](screenshots/js_high.png)
 
 **Explanation**
 
@@ -568,7 +560,7 @@ Login was successful.
 
 **Screenshot**
 
-![Brute Force Medium](screenshots/bf_med.png)
+![Brute Force Medium](screenshots/bf_medium.png)
 
 **Explanation**
 
