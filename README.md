@@ -642,7 +642,7 @@ The file was successfully uploaded even though it contained PHP code.
 
 **Screenshot**
 
-![File Upload Medium](screenshots/fileupload_med.png)
+![File Upload Medium](screenshots/fu_med.png)
 
 **Explanation**
 
@@ -667,7 +667,7 @@ The upload was blocked and the malicious file could not be uploaded.
 
 **Screenshot**
 
-![File Upload High](screenshots/fileupload_high.png)
+![File Upload High](screenshots/fu_high.png)
 
 **Explanation**
 
