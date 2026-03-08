@@ -956,7 +956,7 @@ The contents of the `/etc/passwd` file were displayed in the browser.
 
 **Screenshot**
 
-![File Inclusion Medium](screenshots/fi_medium.png)
+![File Inclusion Medium](screenshots/fi_med.png)
 
 **Explanation**
 
