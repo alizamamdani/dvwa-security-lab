@@ -913,3 +913,73 @@ At the High security level, the CSP policy restricts scripts to the same origin 
 
 ---
 
+### Vulnerability: File Inclusion
+
+File Inclusion vulnerabilities occur when a web application loads files dynamically based on user input without proper validation. Attackers can manipulate the file path parameter to load unintended files from the server, which may expose sensitive system information or application data.
+
+---
+
+#### Security Level: Low
+
+**Payload Used**
+
+```
+http://localhost:8080/vulnerabilities/fi/?page=file4.php
+```
+
+**Result**
+
+The application successfully loaded `file4.php`, even though it is not normally accessible through the interface.
+
+**Screenshot**
+
+![File Inclusion Low](screenshots/fi_low.png)
+
+**Explanation**
+
+At the Low security level, DVWA directly loads the file specified in the `page` parameter using the PHP `include()` function without validating the file name. Because there is no restriction on which file can be loaded, an attacker can manually modify the URL to access files that are not intended to be publicly accessible.
+
+---
+
+#### Security Level: Medium
+
+**Payload Used**
+
+```
+http://localhost:8080/vulnerabilities/fi/?page=//etc/passwd
+```
+
+
+**Result**
+
+The contents of the `/etc/passwd` file were displayed in the browser.
+
+**Screenshot**
+
+![File Inclusion Medium](screenshots/fi_medium.png)
+
+**Explanation**
+
+At the Medium security level, DVWA attempts to block directory traversal by filtering certain patterns such as `../`. However, the filtering is incomplete and does not account for alternative path formats. By using `//etc/passwd`, the attacker bypasses the weak filter and forces the application to include a sensitive system file from the server.
+
+---
+
+#### Security Level: High
+
+**Payload Used**
+
+```
+http://localhost:8080/vulnerabilities/fi/?page=file:////etc/passwd
+```
+
+**Result**
+
+The application displayed the contents of the `/etc/passwd` file.
+
+**Screenshot**
+
+![File Inclusion High](screenshots/fi_high.png)
+
+**Explanation**
+
+At the High security level, DVWA attempts to restrict file inclusion by validating the input and blocking common directory traversal patterns. However, the application does not properly validate URI schemes. By using the `file://` protocol, the attacker bypasses the input validation and forces the application to include a sensitive file from the server. This demonstrates how improper input validation can still allow file inclusion attacks even when additional security controls are implemented.
