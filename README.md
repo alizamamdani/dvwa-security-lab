@@ -674,3 +674,77 @@ The upload was blocked and the malicious file could not be uploaded.
 At the High security level, stronger validation is applied. The application checks the file type and verifies whether the uploaded file is a real image. Because the uploaded file contained PHP code instead of image data, the server rejected it and the attack failed.
 
 ---
+
+### Vulnerability: Weak Session IDs
+
+Weak Session IDs occur when a web application generates session identifiers that are predictable. Attackers can exploit this to hijack other users’ sessions and impersonate them.
+
+---
+
+#### Security Level: Low
+
+**Payload Used**
+
+Generated session IDs using DVWA’s **Generate** button. Observed session values from browser cookies.
+
+**Result**
+
+The session IDs were sequential integers: 1, 2, 3, 4, 5
+
+
+This allows an attacker to easily predict the next session ID and hijack a session.
+
+**Screenshot**
+
+![Weak Session IDs Low](screenshots/wsid1699443834, 1699443835, 1699443836_low.png)
+
+**Explanation**
+
+At Low security, DVWA generates session IDs as **incrementing integers**, making them fully predictable. No randomness or hashing is applied, so an attacker can simply guess the next ID to hijack a session.
+
+---
+
+#### Security Level: Medium
+
+**Payload Used**
+
+Generated session IDs at Medium level and observed cookies.
+
+**Result**
+
+The session IDs were based on **Unix timestamps**, e.g.: 1699443834, 1699443835, 1699443836
+
+These could be guessed if the attacker knew approximately when the session was created.
+
+**Screenshot**
+
+![Weak Session IDs Medium](screenshots/wsid_med.png)
+
+**Explanation**
+
+At Medium security, DVWA uses **timestamps** to generate session IDs. While less predictable than sequential integers, an attacker can still estimate session IDs based on the current time, making this partially vulnerable.
+
+---
+
+#### Security Level: High
+
+**Payload Used**
+
+Generated session IDs at High level and observed cookies.
+
+**Result**
+
+The session IDs were **long random hash values**, e.g.: 7c4a8d09ca3762af61e59520943dc264
+
+These are not sequential or timestamp-based, making them harder to predict, but MD5 is considered **cryptographically weak** and can be subject to collision attacks.
+
+**Screenshot**
+
+![Weak Session IDs High](screenshots/wsid_high.png)
+
+**Explanation**
+
+At High security, DVWA generates session IDs using **MD5 hashes**. While this increases unpredictability compared to Low and Medium, MD5 is **not recommended for secure session IDs**. Modern best practices require cryptographically secure random functions (e.g., `random_bytes()` in PHP) instead of MD5.
+
+
+---
