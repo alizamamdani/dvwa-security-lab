@@ -115,6 +115,8 @@ At the High security level, DVWA uses a CSRF token called `user_token`. This tok
 
 SQL Injection happens when user input is directly used in an SQL query without proper validation. An attacker can manipulate the query to access or modify database information.
 
+---
+
 #### Security Level: Low
 
 **Payload Used**
@@ -184,6 +186,8 @@ At the High level, additional checks are added, but the SQL query is still creat
 ### Vulnerability: Reflected Cross-Site Scripting (XSS)
 
 Reflected XSS occurs when user input is immediately included in the webpage output without proper sanitization. This allows attackers to execute JavaScript in the user's browser.
+
+---
 
 #### Security Level: Low
 
@@ -255,6 +259,8 @@ The filter removes `<script>` tags but does not sanitize HTML event attributes s
 
 Stored XSS occurs when malicious input is stored on the server and executed every time the page is loaded.
 
+---
+
 #### Security Level: Low
 
 **Payload Used**
@@ -323,6 +329,8 @@ At the High security level, stronger filtering and output encoding are used. Dan
 ### Vulnerability: Command Injection
 
 Command Injection occurs when user input is passed directly into system commands without proper validation.
+
+---
 
 #### Security Level: Low
 
@@ -394,6 +402,8 @@ The developer tried to filter certain patterns and used `trim()` to remove space
 
 Blind SQL Injection occurs when the application does not directly display database results, but attackers can still determine information based on responses or delays.
 
+---
+
 #### Security Level: Low
 
 **Payload Used**
@@ -464,6 +474,8 @@ The High level hides database output, but the injected SQL command is still exec
 
 This vulnerability involves bypassing validation logic implemented in client-side JavaScript.
 
+---
+
 #### Security Level: Low
 
 **Payload Used**
@@ -523,6 +535,8 @@ At the High security level, token validation is handled on the server side. Beca
 ### Vulnerability: Brute Force
 
 Brute Force attacks try many username and password combinations until the correct one is found.
+
+---
 
 #### Security Level: Low
 
