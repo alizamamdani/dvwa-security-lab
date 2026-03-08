@@ -696,7 +696,7 @@ This allows an attacker to easily predict the next session ID and hijack a sessi
 
 **Screenshot**
 
-![Weak Session IDs Low](screenshots/wsid1699443834, 1699443835, 1699443836_low.png)
+![Weak Session IDs Low](screenshots/wsid_low.png)
 
 **Explanation**
 
