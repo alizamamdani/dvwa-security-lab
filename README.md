@@ -832,3 +832,84 @@ The alert popup still appeared.
 At the High security level, DVWA attempts to filter malicious input using blacklist-based filtering. The filter blocks certain tags such as `<script>`, but it does not remove event handler attributes like `onerror`. Because the JavaScript executes through the image error event, the payload bypasses the filter and the XSS attack still succeeds. This demonstrates that blacklist filtering alone is not sufficient to prevent DOM-based XSS.
 
 ---
+
+### Vulnerability: Content Security Policy (CSP) Bypass
+
+Content Security Policy (CSP) is a security mechanism designed to reduce the risk of Cross‑Site Scripting (XSS) attacks by restricting where scripts can be loaded from. If CSP is misconfigured, attackers may still be able to execute malicious JavaScript by loading scripts from allowed sources or abusing existing endpoints.
+
+---
+
+#### Security Level: Low
+
+**Payload Used**
+
+```
+http://127.0.0.1:8000/evil.js
+```
+
+Content of `evil.js`:
+
+```javascript
+alert("CSP Bypass Successful");
+```
+
+**Result**
+
+The alert popup appeared in the browser when the script was loaded.
+
+**Screenshot**
+
+![DOM XSS High](screenshots/csp_low.png)
+
+**Explanation**
+
+At the Low security level, the CSP configuration does not properly restrict script sources. Because of this, the application allows scripts to be loaded from external locations. By hosting a malicious JavaScript file (evil.js) on a local server and providing its URL in the input field, the browser loads and executes the script. This demonstrates that without proper CSP restrictions, attackers can easily execute malicious scripts.
+
+#### Security Level: Medium
+
+**Payload Used**
+
+```
+http://127.0.0.1:8000/evil.js
+```
+
+Content of `evil.js`:
+
+```javascript
+alert("CSP Bypass Successful");
+```
+
+**Result**
+
+The alert popup appeared again when the script was loaded.
+
+**Screenshot**
+
+![DOM XSS High](screenshots/csp_med.png)
+
+**Explanation**
+
+At the Medium security level, the application attempts to restrict script sources using a basic CSP rule. However, scripts from localhost are still allowed. Since the malicious script was hosted on the local machine using a simple HTTP server, the browser accepted the script and executed it. This shows that CSP policies must be carefully configured because allowing scripts from broad sources like localhost can still allow attackers to bypass the protection.
+
+#### Security Level: High
+
+**Payload Used**
+
+```
+http://localhost:8080/vulnerabilities/csp/source/jsonp.php?callback=alert
+```
+
+**Result**
+
+The alert appeared in the browser.
+
+**Screenshot**
+
+![DOM XSS High](screenshots/csp_high.png)
+
+**Explanation**
+
+At the High security level, the CSP policy restricts scripts to the same origin using a rule similar to script-src 'self'. External scripts such as evil.js from other sources are blocked. However, the application contains a JSONP endpoint (jsonp.php) that allows a callback parameter. By providing alert as the callback, the endpoint returns executable JavaScript from the same origin. Since the script comes from the allowed domain (localhost:8080), the browser executes it. This demonstrates how JSONP endpoints can be abused to bypass CSP protections.
+
+---
+
