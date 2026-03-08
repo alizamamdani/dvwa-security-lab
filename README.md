@@ -685,12 +685,13 @@ Weak Session IDs occur when a web application generates session identifiers that
 
 **Payload Used**
 
+```
 Generated session IDs using DVWA’s **Generate** button. Observed session values from browser cookies.
+```
 
 **Result**
 
 The session IDs were sequential integers: 1, 2, 3, 4, 5
-
 
 This allows an attacker to easily predict the next session ID and hijack a session.
 
@@ -708,7 +709,9 @@ At Low security, DVWA generates session IDs as **incrementing integers**, making
 
 **Payload Used**
 
+```
 Generated session IDs at Medium level and observed cookies.
+```
 
 **Result**
 
@@ -730,7 +733,9 @@ At Medium security, DVWA uses **timestamps** to generate session IDs. While less
 
 **Payload Used**
 
+```
 Generated session IDs at High level and observed cookies.
+```
 
 **Result**
 
