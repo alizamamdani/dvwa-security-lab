@@ -255,6 +255,78 @@ The filter removes `<script>` tags but does not sanitize HTML event attributes s
 
 ---
 
+### Vulnerability: DOM Based Cross-Site Scripting (DOM XSS)
+
+DOM Based Cross-Site Scripting occurs when client-side JavaScript processes user input and inserts it into the webpage without proper sanitization. The attack is executed entirely in the browser by manipulating the Document Object Model (DOM).
+
+---
+
+#### Security Level: Low
+
+**Payload Used**
+
+```
+<script>alert('XSS')</script>
+```
+
+**Result**
+
+An alert popup appeared in the browser.
+
+**Screenshot**
+
+![DOM XSS Low](screenshots/xssd_low.png)
+
+**Explanation**
+
+At the Low security level, the application directly inserts the value of the `default` parameter into the page using JavaScript. Since there is no filtering or sanitization, the browser interprets the `<script>` tag as executable JavaScript and runs it immediately.
+
+---
+
+#### Security Level: Medium
+
+**Payload Used**
+
+```
+<img src=x onerror=alert(1)>
+```
+
+**Result**
+
+The alert popup appeared.
+
+**Screenshot**
+
+![DOM XSS Medium](screenshots/xssd_med.png)
+
+**Explanation**
+
+At the Medium level, the application attempts to block `<script>` tags. However, the protection only filters specific patterns and does not remove HTML event attributes. By using an image tag with the `onerror` event handler, JavaScript executes when the image fails to load.
+
+---
+
+#### Security Level: High
+
+**Payload Used**
+
+```
+<img src=x onerror=alert(1)>
+```
+
+**Result**
+
+The alert popup still appeared.
+
+**Screenshot**
+
+![DOM XSS High](screenshots/xssd_high.png)
+
+**Explanation**
+
+At the High security level, DVWA attempts to filter malicious input using blacklist-based filtering. The filter blocks certain tags such as `<script>`, but it does not remove event handler attributes like `onerror`. Because the JavaScript executes through the image error event, the payload bypasses the filter and the XSS attack still succeeds. This demonstrates that blacklist filtering alone is not sufficient to prevent DOM-based XSS.
+
+---
+
 ### Vulnerability: Stored Cross-Site Scripting (Stored XSS)
 
 Stored XSS occurs when malicious input is stored on the server and executed every time the page is loaded.
@@ -758,78 +830,6 @@ These are not sequential or timestamp-based, making them harder to predict, but 
 **Explanation**
 
 At High security, DVWA generates session IDs using **MD5 hashes**. While this increases unpredictability compared to Low and Medium, MD5 is **not recommended for secure session IDs**. Modern best practices require cryptographically secure random functions (e.g., `random_bytes()` in PHP) instead of MD5.
-
----
-
-### Vulnerability: DOM Based Cross-Site Scripting (DOM XSS)
-
-DOM Based Cross-Site Scripting occurs when client-side JavaScript processes user input and inserts it into the webpage without proper sanitization. The attack is executed entirely in the browser by manipulating the Document Object Model (DOM).
-
----
-
-#### Security Level: Low
-
-**Payload Used**
-
-```
-<script>alert('XSS')</script>
-```
-
-**Result**
-
-An alert popup appeared in the browser.
-
-**Screenshot**
-
-![DOM XSS Low](screenshots/xssd_low.png)
-
-**Explanation**
-
-At the Low security level, the application directly inserts the value of the `default` parameter into the page using JavaScript. Since there is no filtering or sanitization, the browser interprets the `<script>` tag as executable JavaScript and runs it immediately.
-
----
-
-#### Security Level: Medium
-
-**Payload Used**
-
-```
-<img src=x onerror=alert(1)>
-```
-
-**Result**
-
-The alert popup appeared.
-
-**Screenshot**
-
-![DOM XSS Medium](screenshots/xssd_med.png)
-
-**Explanation**
-
-At the Medium level, the application attempts to block `<script>` tags. However, the protection only filters specific patterns and does not remove HTML event attributes. By using an image tag with the `onerror` event handler, JavaScript executes when the image fails to load.
-
----
-
-#### Security Level: High
-
-**Payload Used**
-
-```
-<img src=x onerror=alert(1)>
-```
-
-**Result**
-
-The alert popup still appeared.
-
-**Screenshot**
-
-![DOM XSS High](screenshots/xssd_high.png)
-
-**Explanation**
-
-At the High security level, DVWA attempts to filter malicious input using blacklist-based filtering. The filter blocks certain tags such as `<script>`, but it does not remove event handler attributes like `onerror`. Because the JavaScript executes through the image error event, the payload bypasses the filter and the XSS attack still succeeds. This demonstrates that blacklist filtering alone is not sufficient to prevent DOM-based XSS.
 
 ---
 
