@@ -1176,23 +1176,94 @@ If this application is deployed on the public internet with these vulnerabilitie
 
 ---
 
-### Mapping vulnerabilities to OWASP Top 10
+### Mapping vulnerabilities to OWASP Top 10 (2025)
 
 | Vulnerability | OWASP Category |
 |---|---|
-| SQL Injection | A03: Injection |
-| Blind SQL Injection | A03: Injection |
-| Command Injection | A03: Injection |
-| Reflected XSS | A03: Injection |
-| Stored XSS | A03: Injection |
-| DOM Based XSS | A03: Injection |
-| CSRF | A01: Broken Access Control |
-| File Inclusion | A05: Security Misconfiguration |
-| File Upload | A05: Security Misconfiguration |
-| Weak Session IDs | A02: Cryptographic Failures |
-| Brute Force | A07: Identification and Authentication Failures |
-| JavaScript Attacks | A04: Insecure Design |
-| CSP Bypass | A05: Security Misconfiguration |
-| Insecure CAPTCHA | A04: Insecure Design |
+| SQL Injection | A05:2025 - Injection |
+| Blind SQL Injection | A05:2025 - Injection |
+| Command Injection | A05:2025 - Injection |
+| Reflected XSS | A05:2025 - Injection |
+| Stored XSS | A05:2025 - Injection |
+| DOM Based XSS | A05:2025 - Injection |
+| CSRF | A01:2025 - Broken Access Control |
+| File Inclusion | A05:2025 - Injection |
+| File Upload | A02:2025 - Security Misconfiguration |
+| Weak Session IDs | A04:2025 - Cryptographic Failures |
+| Brute Force | A07:2025 - Authentication Failures |
+| JavaScript Attacks | A06:2025 - Insecure Design |
+| CSP Bypass | A02:2025 - Security Misconfiguration |
+| Insecure CAPTCHA | A07:2025 - Authentication Failures |
 
 ---
+
+---
+
+## Bonus: DVWA Behind Nginx Reverse Proxy with HTTPS
+
+In this section, DVWA is deployed behind an Nginx reverse proxy and HTTPS is implemented using a self-signed certificate. This setup demonstrates how secure connections protect sensitive traffic from interception.
+
+---
+
+### Step 1: Install Nginx
+
+Nginx was installed and verified to ensure reverse proxy functionality.
+
+![Nginx Installation](screenshots/nginx_install.png)
+
+---
+
+### Step 2: Generate Self-Signed Certificate
+
+A self-signed certificate and private key were created to enable HTTPS access for DVWA.
+
+![Certificate Creation](screenshots/cert.png)
+
+---
+
+### Step 3: Configure Nginx for Reverse Proxy and HTTPS
+
+The Nginx configuration was updated to forward traffic to DVWA and enable HTTPS.
+
+![Config File](screenshots/config.png)
+
+The configuration was tested using:
+
+```
+sudo nginx -t
+```
+![Test](screenshots/nginx_t.png)
+
+### Step 4: Access DVWA Over HTTP and HTTPS
+
+#### HTTP Access
+
+DVWA was accessed over HTTP to demonstrate unencrypted traffic. Form submissions, including passwords, are visible in plain text.
+
+![HTTP](screenshots/http.png)
+
+#### HTTPS Access
+
+DVWA was accessed over HTTPS using the self-signed certificate. Traffic is encrypted and secure, and a lock icon appears in the browser.
+
+![HTTPS](screenshots/https.png)
+
+Optional Verification with cURL
+
+HTTPS access was verified using curl:
+
+```
+curl -k https://localhost
+```
+
+![Curl](screenshots/curl.png)
+
+### Difference Between HTTP and HTTPS Traffic
+
+| Feature                     | HTTP                                   | HTTPS                                           |
+|-------------------------------|----------------------------------------|------------------------------------------------|
+| **Data Encryption**           | None, sent in plain text               | Encrypted using TLS/SSL                        |
+| **Security**                  | Vulnerable to interception and eavesdropping | Protects sensitive data from attackers        |
+| **Browser Indicator**         | No lock icon                           | Lock icon displayed in address bar             |
+| **Form Submission Visibility**| Data like passwords visible in requests| Data is encrypted and secure                   |
+| **Authentication**            | Not verified                           | Server identity is verified via certificate   |
