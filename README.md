@@ -1146,7 +1146,7 @@ DVWA is built using PHP for the backend logic and MySQL (or MariaDB) for the dat
 
 **How Docker isolates the environment**
 
-Docker runs applications inside containers that are isolated from the host system. Each container has its own file system, processes, and network configuration. Because of this isolation, DVWA runs independently without affecting the host operating system or other applications.
+Docker runs applications inside containers that are isolated from the host system. Each container has its own file system, processes, and network configuration. This isolation is achieved using Linux namespaces and control groups (cgroups). Linux namespaces ensure that each container has its own view of system resources such as processes, networking, and file systems, while cgroups limit and manage the resources (such as CPU and memory) that the container can use. Because of this isolation, DVWA runs independently without affecting the host operating system or other applications.
 
 ---
 
