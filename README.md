@@ -1234,6 +1234,8 @@ sudo nginx -t
 ```
 ![Test](screenshots/nginx_t.png)
 
+---
+
 ### Step 4: Access DVWA Over HTTP and HTTPS
 
 #### HTTP Access
