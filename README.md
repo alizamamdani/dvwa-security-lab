@@ -337,7 +337,7 @@ Stored XSS occurs when malicious input is stored on the server and executed ever
 
 **Payload Used**
 
-Name: Aliza
+Name: Aliza, 
 Message:
 
 ```
