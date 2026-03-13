@@ -1225,7 +1225,7 @@ A self-signed certificate and private key were created to enable HTTPS access fo
 
 The Nginx configuration was updated to forward traffic to DVWA and enable HTTPS.
 
-![Config File](screenshots/config.png)
+![Config File](screenshots/nginx_config.png)
 
 The configuration was tested using:
 
@@ -1248,13 +1248,7 @@ DVWA was accessed over HTTPS using the self-signed certificate. Traffic is encry
 
 ![HTTPS](screenshots/https.png)
 
-Optional Verification with cURL
-
-HTTPS access was verified using curl:
-
-```
-curl -k https://localhost
-```
+Verification with Curl
 
 ![Curl](screenshots/curl.png)
 
