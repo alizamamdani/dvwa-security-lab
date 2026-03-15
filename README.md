@@ -103,7 +103,7 @@ Password was changed successfully.
 
 **Screenshots**
 
-![CSRF High](screenshots/csrf_high.png)
+![CSRF High](screenshots/csrf_high_updated.png)
 
 **Explanation of Why It Worked**
 
