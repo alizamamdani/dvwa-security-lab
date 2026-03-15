@@ -385,16 +385,20 @@ Some filtering is applied at this level, but it is not applied to all input fiel
 **Payload Used**
 
 ```
-</div><img src=x onerror=alert(1)>
+<img src=x onerror=alert(1)>
 ```
 
 **Result**
 
-The JavaScript did not execute.
+The payload successfully executed JavaScript.
+
+**Screenshot**
+
+![XSS Stored](screenshots/xsss_high.png)
 
 **Explanation**
 
-At the High security level, stronger filtering and output encoding are used. Dangerous attributes such as `onerror` are removed or encoded, so the browser treats the input as normal text instead of executing it.
+The attack worked because the application mainly attempted to block `<script>` tags but did not properly filter HTML event attributes such as `onerror` or `onload`. By using the `onerror` attribute inside an image tag, JavaScript code was triggered when the image failed to load. Since the input was stored in the database, the malicious script executed automatically every time the affected page was opened.
 
 ---
 
@@ -592,15 +596,25 @@ The token was still generated using client-side JavaScript. By manually running 
 
 **Payload Used**
 
-None (manual token generation attempt).
+```
+In Console:
+
+document.getElementById("phrase").value="success";
+document.getElementById("token").value=sha256(sha256("XXsseccus")+"ZZ");
+document.forms[0].submit();
+```
 
 **Result**
 
-The token could not be regenerated.
+Token regenerated successfully.
+
+**Screenshot**
+
+![JavaScript Attack High](screenshots/js_high.png)
 
 **Explanation**
 
-At the High security level, token validation is handled on the server side. Because of this, manually running JavaScript functions in the browser cannot bypass the validation.
+At the High security level, the application tries to improve protection by using an obfuscated script called `high.js`. This script creates the token through multiple functions and also includes extra checks, such as timing conditions, to make the logic harder to understand. However, after examining how these functions work, it is possible to replicate the same steps manually in the browser console. By generating the token using the same logic as the script, the validation can still be bypassed.
 
 ---
 
