@@ -754,24 +754,28 @@ At the Medium security level, the application tries to restrict uploads by check
 
 **Payload Used**
 
+A PHP web shell disguised as an image file.
+
+File name: `shell.jpg`
+
+Content:
+
 ```
-shell.php
-shell.php.jpg
-shell.php5
-shell.phtml
+\xFF\xD8\xFF\xE0
+<?php system($_GET['cmd']); ?>
 ```
 
 **Result**
 
-The upload was blocked and the malicious file could not be uploaded.
+The upload attempt was successful.
 
 **Screenshot**
 
-![File Upload High](screenshots/fu_high.png)
+![File Upload High](screenshots/fu_high_updated.png)
 
 **Explanation**
 
-At the High security level, stronger validation is applied. The application checks the file type and verifies whether the uploaded file is a real image. Because the uploaded file contained PHP code instead of image data, the server rejected it and the attack failed.
+At the High security level, the application performs stricter checks on uploaded files, including validating file extensions, MIME types, and file contents. It also attempts to verify image files by checking properties such as their size. However, this protection can still be bypassed by creating a polyglot file. By adding valid image magic bytes at the beginning of the file, the upload appears to be a legitimate image, while still containing executable PHP code. Because of this, the malicious file was accepted by the application.
 
 ---
 
