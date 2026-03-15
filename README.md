@@ -390,11 +390,11 @@ Some filtering is applied at this level, but it is not applied to all input fiel
 
 **Result**
 
-The payload successfully executed JavaScript.
+Alert appeared.
 
 **Screenshot**
 
-![XSS Stored](screenshots/xsss_high.png)
+![XSS Stored](screenshots/xsss_high.jpg)
 
 **Explanation**
 
